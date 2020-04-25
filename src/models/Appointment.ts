@@ -1,4 +1,3 @@
-import { uuid } from 'uuidv4'
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 
 @Entity('appointments')
@@ -9,14 +8,8 @@ class Appointment {
   @Column('varchar')
   provider: string
 
-  @Column('time with time zone')
+  @Column('timestamp with time zone')
   date: Date
-
-  constructor({ provider, date }: Omit<Appointment, 'id'>) {
-    this.id = uuid()
-    this.provider = provider
-    this.date = date
-  }
 }
 
 export default Appointment
