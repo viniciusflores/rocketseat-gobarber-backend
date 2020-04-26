@@ -19,7 +19,6 @@ export default function ensureAuthentication(
     throw new Error('JWT token is missing')
   }
 
-  // Separa o nome bearer do token no espaço
   const [, token] = authHeader.split(' ')
 
   try {
