@@ -3,17 +3,17 @@ import CreateUserSessionService from '../services/CreateUserSessionService'
 
 const sessionsRouter = Router()
 
-sessionsRouter.get('/', async (request, response) => {
+sessionsRouter.post('/', async (request, response) => {
   try {
     const { email, password } = request.body
     const createUserSessionService = new CreateUserSessionService()
-    const { user } = await createUserSessionService.execute({
+    const { user, token } = await createUserSessionService.execute({
       email,
       password,
     })
 
     delete user.password
-    return response.json({ user })
+    return response.json({ user, token })
   } catch (err) {
     return response.status(400).json({ error: err.message })
   }
