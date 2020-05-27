@@ -1,0 +1,250 @@
+{
+	"info": {
+		"_postman_id": "81c6a0c2-b71d-4c0e-8e87-24dd0e80abcb",
+		"name": "GoBarber Rocketseat",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "179bd66e-5726-428c-b580-87a3225fc516",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.environment.set(\"user_id\", jsonData.id);",
+									"pm.environment.set(\"user_name\", jsonData.name);",
+									"pm.environment.set(\"user_email\", jsonData.email);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\":\"Provider\",\n\t\"email\":\"vini@email.com\",\n\t\"password\":\"{{user_password}}\" \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/users",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "insert avatar",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "avatar",
+									"type": "file",
+									"src": "/home/vagrant/Desktop/avatar.jpeg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host}}/users/avatar",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"users",
+								"avatar"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "appointments",
+			"item": [
+				{
+					"name": "list",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/appointments",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"appointments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2e29e7a0-872d-423a-a4c7-b57d97bd5778",
+								"exec": [
+									"const moment = require(\"moment\");",
+									"",
+									"pm.environment.set(\"date\", moment());",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"provider_id\":\"{{provider_id}}\", \n\t\"date\": \"{{date}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/appointments",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"appointments"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "sessions",
+			"item": [
+				{
+					"name": "create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1fcd6165-c0e0-40fc-a449-aa577ed6c2cd",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.environment.set(\"user_token\", jsonData.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\":\"{{user_email}}\",\n\t\"password\":\"{{user_password}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/sessions",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"sessions"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "ec86ac9d-7fd8-41ef-b182-e4e689d3bc60",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "4cb229c5-6738-4ab2-8749-70529d830588",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
