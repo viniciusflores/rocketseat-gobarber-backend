@@ -27,11 +27,9 @@ module.exports = {
     'prettier/prettier': 'error',
     'class-methods-use-this':'off',
     'no-useless-constructor':'off',
-    '@typescript-eslint/camelcase': '["error", {properties: "never"}]',
     '@typescript-eslint/no-unused-vars': ['error', {
       'argsIgnorePattern': '_'
     }],
-    '@typescript-eslint/interface-name-prefix':{ "prefixWithI": "always" },
     'import/extensions': [
       'error',
       'ignorePackages',
