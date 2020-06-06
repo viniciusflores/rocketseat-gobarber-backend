@@ -18,9 +18,4 @@ export default class AppointmentsController {
 
     return response.json(appointment)
   }
-
-  public async index(request: Request, response: Response): Promise<Response> {
-    const appointments = await appointmentsRepository.find()
-    return response.json(appointments)
-  }
 }
