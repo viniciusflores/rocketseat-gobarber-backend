@@ -5,44 +5,47 @@ module.exports = {
     jest: true,
   },
   extends: [
-    'airbnb-base',
-    'plugin:@typescript-eslint/recommended',
-    'prettier/@typescript-eslint',
-    'plugin:prettier/recommended'
+    "airbnb-base",
+    "plugin:@typescript-eslint/recommended",
+    "prettier/@typescript-eslint",
+    "plugin:prettier/recommended"
   ],
   globals: {
-    Atomics: 'readonly',
-    SharedArrayBuffer: 'readonly',
+    Atomics: "readonly",
+    SharedArrayBuffer: "readonly",
   },
-  parser: '@typescript-eslint/parser',
+  parser: "@typescript-eslint/parser",
   parserOptions: {
     ecmaVersion: 2018,
-    sourceType: 'module',
+    sourceType: "module",
   },
   plugins: [
-    '@typescript-eslint',
-    'prettier'
+    "@typescript-eslint",
+    "prettier"
   ],
   rules: {
-    'semi': ['error', 'never'],
-    'prettier/prettier': 'error',
-    'class-methods-use-this':'off',
-    'no-useless-constructor':'off',
-    '@typescript-eslint/camelcase': 'off',
-    '@typescript-eslint/no-unused-vars': ['error', {
-      'argsIgnorePattern': '_'
-    }],
-    'import/extensions': [
-      'error',
-      'ignorePackages',
+    "semi": ["error", "never"],
+    "class-methods-use-this":"off",
+    "prettier/prettier": "error",
+    "no-useless-constructor":"off",
+    "@typescript-eslint/camelcase": "off",
+    "@typescript-eslint/no-unused-vars": [
+      "error",
       {
-        'ts': 'never'
+        "argsIgnorePattern": "_"
+      }
+    ],
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "ts": "never"
       },
     ],
   },
-  'settings': {
-    'import/resolver': {
-      'typescript': {}
+  "settings": {
+    "import/resolver": {
+      "typescript": {}
     }
   }
 };
