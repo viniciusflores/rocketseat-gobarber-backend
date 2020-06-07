@@ -9,89 +9,6 @@
 			"name": "user",
 			"item": [
 				{
-					"name": "password",
-					"item": [
-						{
-							"name": "forgot password",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n\t\"email\":\"{{user_email}}\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{host}}/password/forgot",
-									"host": [
-										"{{host}}"
-									],
-									"path": [
-										"password",
-										"forgot"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "reset password",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n\t\"password\": \"123123\",\n\t\"token\": \"4168dcb2-cc71-40b2-a494-f137b9ed746f\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{host}}/password/reset",
-									"host": [
-										"{{host}}"
-									],
-									"path": [
-										"password",
-										"reset"
-									]
-								}
-							},
-							"response": []
-						}
-					],
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"id": "30d8d35f-3f31-473a-afed-897430061d5d",
-								"type": "text/javascript",
-								"exec": [
-									""
-								]
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"id": "0ea311a3-4710-47f4-bf46-b38b67121f03",
-								"type": "text/javascript",
-								"exec": [
-									""
-								]
-							}
-						}
-					],
-					"protocolProfileBehavior": {},
-					"_postman_isSubFolder": true
-				},
-				{
 					"name": "create",
 					"event": [
 						{
@@ -108,6 +25,20 @@
 								],
 								"type": "text/javascript"
 							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "59dc3630-3951-453d-91c0-4f32692de875",
+								"exec": [
+									"pm.environment.set(\"user_name\", \"Vinicius\");",
+									"user_name = pm.environment.get(\"user_name\");",
+									"pm.environment.set(\"user_email\", user_name + _.random(0001, 9999) + \"@email.com\");",
+									"pm.environment.set(\"user_password\", \"123456\");",
+									""
+								],
+								"type": "text/javascript"
+							}
 						}
 					],
 					"request": {
@@ -115,7 +46,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"name\":\"Vinicius\",\n\t\"email\":\"vini4@email.com\",\n\t\"password\":\"{{user_password}}\" \n}",
+							"raw": "{\n\t\"name\":\"{{user_name}}\",\n\t\"email\":\"{{user_email}}\",\n\t\"password\":\"{{user_password}}\" \n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -136,6 +67,23 @@
 				},
 				{
 					"name": "insert avatar",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "74a947a4-c723-408b-bdb9-683b39db7f95",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.environment.set(\"user_id\", jsonData.id);",
+									"pm.environment.set(\"user_name\", jsonData.name);",
+									"pm.environment.set(\"user_email\", jsonData.email);",
+									"pm.environment.set(\"user_avatar\", jsonData.avatar);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -167,91 +115,6 @@
 							"path": [
 								"users",
 								"avatar"
-							]
-						}
-					},
-					"response": []
-				}
-			],
-			"protocolProfileBehavior": {}
-		},
-		{
-			"name": "appointments",
-			"item": [
-				{
-					"name": "list",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{user_token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{host}}/appointments",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"appointments"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "create",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"id": "2e29e7a0-872d-423a-a4c7-b57d97bd5778",
-								"exec": [
-									"const moment = require(\"moment\");",
-									"",
-									"pm.environment.set(\"date\", moment());",
-									"",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{user_token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n\t\"provider_id\":\"{{provider_id}}\", \n\t\"date\": \"{{date}}\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{host}}/appointments",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"appointments"
 							]
 						}
 					},
@@ -298,6 +161,257 @@
 							],
 							"path": [
 								"sessions"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "appointments",
+			"item": [
+				{
+					"name": "create",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "2e29e7a0-872d-423a-a4c7-b57d97bd5778",
+								"exec": [
+									"const moment = require(\"moment\");",
+									"",
+									"pm.environment.set(\"date\", moment());",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "472a669a-ce0b-43b0-b533-b90f7c800067",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.environment.set(\"appointment_id\", jsonData.appointment_id);",
+									"pm.environment.set(\"provider_id\", jsonData.provider_id);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"provider_id\":\"{{provider_id}}\", \n\t\"date\": \"{{date}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/appointments",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"appointments"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "password",
+			"item": [
+				{
+					"name": "forgot password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\":\"{{user_email}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/password/forgot",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"password",
+								"forgot"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "reset password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b5ff3ca8-2e0b-480b-af56-0aa1aa8715b1",
+								"exec": [
+									"new_password = pm.environment.get(\"new_password\");",
+									"pm.environment.set(\"user_password\", new_password);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"password\": \"{{new_password}}\",\n\t\"token\": \"{{forgot_password_token}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/password/reset",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"password",
+								"reset"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "30d8d35f-3f31-473a-afed-897430061d5d",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "0ea311a3-4710-47f4-bf46-b38b67121f03",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "profile",
+			"item": [
+				{
+					"name": "Show profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/profile",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update profile",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0db4be5d-952d-4c8e-9d8c-ba767c9841a8",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.environment.set(\"user_id\", jsonData.id);",
+									"pm.environment.set(\"user_name\", jsonData.name);",
+									"pm.environment.set(\"user_email\", jsonData.email);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\":\"{{user_name}}\",\n\t\"email\":\"{{user_email}}\",\n\t\"old_password\":\"{{user_password}}\",\n\t\"password\":\"{{user_password}}\" \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/profile",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"profile"
 							]
 						}
 					},
