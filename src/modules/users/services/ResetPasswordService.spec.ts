@@ -1,6 +1,5 @@
 import FakeUsersRepositories from '@modules/users/repositories/fakes/FakeUsersRepository'
 import FakeUsersTokenRepositories from '@modules/users/repositories/fakes/FakeUsersTokenRepository'
-import FakeMailProvider from '@shared/container/providers/MailProvider/fakes/FakeMailProvider'
 import FakeHashProvider from '@modules/users/providers/HashProvider/fakes/FakeHashProvider'
 import ResetPasswordService from '@modules/users/services/ResetPasswordService'
 import AppError from '@shared/errors/AppError'
