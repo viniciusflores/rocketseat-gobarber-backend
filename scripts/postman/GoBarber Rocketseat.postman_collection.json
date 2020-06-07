@@ -9,6 +9,89 @@
 			"name": "user",
 			"item": [
 				{
+					"name": "password",
+					"item": [
+						{
+							"name": "forgot password",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"email\":\"{{user_email}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/password/forgot",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"password",
+										"forgot"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "reset password",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"password\": \"123123\",\n\t\"token\": \"4168dcb2-cc71-40b2-a494-f137b9ed746f\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host}}/password/reset",
+									"host": [
+										"{{host}}"
+									],
+									"path": [
+										"password",
+										"reset"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "30d8d35f-3f31-473a-afed-897430061d5d",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "0ea311a3-4710-47f4-bf46-b38b67121f03",
+								"type": "text/javascript",
+								"exec": [
+									""
+								]
+							}
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
 					"name": "create",
 					"event": [
 						{
@@ -32,7 +115,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"name\":\"Provider\",\n\t\"email\":\"vini@email.com\",\n\t\"password\":\"{{user_password}}\" \n}",
+							"raw": "{\n\t\"name\":\"Vinicius\",\n\t\"email\":\"vini4@email.com\",\n\t\"password\":\"{{user_password}}\" \n}",
 							"options": {
 								"raw": {
 									"language": "json"
