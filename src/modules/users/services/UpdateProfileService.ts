@@ -9,8 +9,8 @@ interface IRequest {
   user_id: string
   name: string
   email: string
-  password?: string
   old_password?: string
+  password?: string
 }
 
 @injectable()
@@ -24,8 +24,8 @@ class UpdateProfileService {
     user_id,
     name,
     email,
-    password,
     old_password,
+    password,
   }: IRequest): Promise<User> {
     const user = await this.usersRepository.findById(user_id)
 
@@ -51,7 +51,7 @@ class UpdateProfileService {
     if (password && old_password) {
       const checkOldPassword = await this.hashProvider.compareHash(
         old_password,
-        password,
+        user.password,
       )
 
       if (!checkOldPassword) {
