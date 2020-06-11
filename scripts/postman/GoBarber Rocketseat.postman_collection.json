@@ -419,6 +419,56 @@
 				}
 			],
 			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "providers",
+			"item": [
+				{
+					"name": "show provider",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b48c7116-099f-472b-a6a6-c07378275d51",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.environment.set(\"user_id\", jsonData.id);",
+									"pm.environment.set(\"user_name\", jsonData.name);",
+									"pm.environment.set(\"user_email\", jsonData.email);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/providers",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"providers"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
 		}
 	],
 	"event": [
