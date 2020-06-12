@@ -1,5 +1,4 @@
 import FakeAppointmentsRepository from '@modules/appointments/repositories/fakes/FakeAppointmentsRepository'
-// import FakeUsersRepositories from '@modules/users/repositories/fakes/FakeUsersRepository'
 import ListProviderMonthAvailabilityService from '@modules/appointments/services/ListProviderMonthAvailabilityService'
 
 let fakeAppointmentsRepository: FakeAppointmentsRepository
