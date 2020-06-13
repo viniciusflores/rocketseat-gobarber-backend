@@ -165,6 +165,46 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "create with_provider",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d9a8200c-239c-4c54-b3af-276af7ab4e46",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.environment.set(\"provider_token\", jsonData.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\":\"provider@email.com\",\n\t\"password\":\"{{user_password}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/sessions",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"sessions"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -231,6 +271,74 @@
 							],
 							"path": [
 								"appointments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "show ME",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "ff705af6-0096-4cc4-947a-886798a6fcab",
+								"exec": [
+									"const moment = require(\"moment\");",
+									"",
+									"pm.environment.set(\"date\", moment(\"8\", \"hh\").add(2, 'day').toISOString());",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "ed75f5d8-db28-4d01-b443-df60a21b7384",
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.environment.set(\"appointment_id\", jsonData.appointment_id);",
+									"pm.environment.set(\"provider_id\", jsonData.provider_id);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{provider_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"day\":\"15\",\n    \"month\": \"6\",\n    \"year\": \"2020\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/appointments/me",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"appointments",
+								"me"
 							]
 						}
 					},
