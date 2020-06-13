@@ -182,7 +182,7 @@
 								"exec": [
 									"const moment = require(\"moment\");",
 									"",
-									"pm.environment.set(\"date\", moment());",
+									"pm.environment.set(\"date\", moment(\"8\", \"hh\").add(2, 'day').toISOString());",
 									""
 								],
 								"type": "text/javascript"
@@ -462,6 +462,88 @@
 							],
 							"path": [
 								"providers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Month Availability",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"month\": \"6\",\n    \"year\": \"2020\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/providers/{{provider_id}}/month-availability",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"providers",
+								"{{provider_id}}",
+								"month-availability"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Day Availability",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{user_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"day\":\"15\",\n    \"month\": \"6\",\n    \"year\": \"2020\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/providers/{{provider_id}}/day-availability",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"providers",
+								"{{provider_id}}",
+								"day-availability"
 							]
 						}
 					},
