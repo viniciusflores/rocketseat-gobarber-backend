@@ -6,6 +6,10 @@
 
 > yarn typeorm migration:run
 
+# Database: Mongo in Docker
+
+> docker run --name mongodb -p 27017:27017 -d -t mongo
+
 
 # TODO list
 
