@@ -1,4 +1,5 @@
 import { injectable, inject } from 'tsyringe'
+
 import Appoitment from '@modules/appointments/infra/typeorm/entities/Appointment'
 import IAppointmentRepository from '@modules/appointments/repositories/IAppointmentsRepository'
 import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICacheProvider'
@@ -33,8 +34,6 @@ class ListProviderAppointmentsService {
         year,
       },
     )
-
-    this.cacheProvider.save('abc', 'abc')
 
     return appointments
   }
