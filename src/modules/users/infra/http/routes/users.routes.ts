@@ -10,7 +10,7 @@ import UserAvatarControllers from '@modules/users/infra/http/controllers/UserAva
 const usersRouter = Router()
 const usersController = new UsersController()
 const userAvatarControllers = new UserAvatarControllers()
-const upload = multer(uploadConfig)
+const upload = multer(uploadConfig.multer)
 
 usersRouter.post(
   '/',
