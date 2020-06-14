@@ -17,4 +17,4 @@ export default {
       name: 'Nome do Dominio',
     },
   },
-}
+} as IMailConfig

@@ -23,7 +23,7 @@ interface IUploadConfig {
 }
 
 export default {
-  driver: process.env.STORAGE_DRIVER,
+  driver: process.env.STORAGE_DRIVER || 'disk',
 
   tmpFolder,
 
