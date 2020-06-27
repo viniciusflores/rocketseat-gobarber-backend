@@ -13,8 +13,8 @@ export default {
 
   defaults: {
     from: {
-      email: 'email@meuDominio,.com.br',
-      name: 'Nome do Dominio',
+      email: 'help@semfila.club',
+      name: 'Vinicius da GoBarber',
     },
   },
 } as IMailConfig
