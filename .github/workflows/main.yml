@@ -32,7 +32,7 @@ jobs:
         source: "., !node_modules"
         target: "~/app/rocketseat-gobarber-backend"
     
-    - name: Install dependencies on Digital Ocean and Run Migrations
+    - name: Install dependencies on Digital Ocean and Run Migrations and restart Aplication
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.SSH_HOST }}
@@ -43,13 +43,4 @@ jobs:
           cd ~/app/rocketseat-gobarber-backend
           yarn
           ./node_modules/.bin/typeorm migration:run
-          
-    - name: Restart application
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.SSH_HOST }}
-        username: ${{ secrets.SSH_USER }}
-        key: ${{ secrets.SSH_KEY }}
-        port: ${{ secrets.SSH_PORT }}
-        script: pm2 restart gobarber-api 
-     
+          pm2 restart gobarber-api     
