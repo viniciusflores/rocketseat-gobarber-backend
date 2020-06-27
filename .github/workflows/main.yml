@@ -32,8 +32,8 @@ jobs:
         username: ${{ secrets.SSH_USER }}
         key: ${{ secrets.SSH_KEY }}
         port: ${{ secrets.SSH_PORT }}
-        source: "dist"
-        target: "test"
+        source: "."
+        target: "~/app/rocketseat-gobarber-backend"
     
     
     # alter code dist to new code
