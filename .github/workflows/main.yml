@@ -10,7 +10,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    
+       
     - name: Setup Node.js environment
       uses: actions/setup-node@v1.4.2
       with:
@@ -32,11 +32,11 @@ jobs:
         username: ${{ secrets.SSH_USER }}
         key: ${{ secrets.SSH_KEY }}
         port: ${{ secrets.SSH_PORT }}
-        source: "."
+        source: "., !node_modules"
         target: "~/app/rocketseat-gobarber-backend"
     
-    
-    # alter code dist to new code
     # install dependencies yarn on digital ocean
+      
     # run migrations typeorm
     # restart node server
+  
